@@ -14,6 +14,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import br.com.tutorial.domain.audits.AuditModel;
 import br.com.tutorial.domain.enums.EPermissao;
@@ -28,6 +29,13 @@ import lombok.ToString;
         value = {"senha", "operador", "leitor" },
         allowSetters = true
 )
+@JsonPropertyOrder(value = {
+		"id",
+		"codLogin",
+		"permissao",
+		"criadoEm",
+		"atualizadoEm"
+})
 @Builder(toBuilder = true)
 @Data
 @AllArgsConstructor

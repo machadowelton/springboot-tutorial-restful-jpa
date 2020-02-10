@@ -19,6 +19,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import br.com.tutorial.domain.audits.AuditModel;
 import br.com.tutorial.domain.embs.Telefone;
@@ -35,6 +36,17 @@ import lombok.ToString;
 @NoArgsConstructor
 @Entity
 @Table(name = "leitores")
+@JsonPropertyOrder(value = {
+		"id",
+		"nomeCompleto",
+		"cpf",
+		"dataNascimento",
+		"telefone",
+		"email",
+		"usuario",
+		"criadoEm",
+		"atualizadoEm"
+})
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 public class Leitor extends AuditModel {
