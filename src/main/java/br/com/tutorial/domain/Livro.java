@@ -1,20 +1,10 @@
 package br.com.tutorial.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
+import br.com.tutorial.domain.audits.AuditModel;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
-import br.com.tutorial.domain.audits.AuditModel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import javax.persistence.*;
 
 @Builder(toBuilder = true)
 @Data

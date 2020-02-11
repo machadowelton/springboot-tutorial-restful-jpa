@@ -1,15 +1,16 @@
 package br.com.tutorial.services.impls;
 
-import java.util.Optional;
-
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-
 import br.com.tutorial.domain.Usuario;
+import br.com.tutorial.domain.enums.EPermissao;
 import br.com.tutorial.domain.custom.usuario.UsuarioDTO;
+import br.com.tutorial.domain.exceptions.AplicacaoException;
 import br.com.tutorial.domain.exceptions.ValidacaoException;
 import br.com.tutorial.services.IUsuarioService;
 import br.com.tutorial.services.repository.UsuarioRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UsuarioServiceImpl implements IUsuarioService {
@@ -22,11 +23,13 @@ public class UsuarioServiceImpl implements IUsuarioService {
 		this.encoder = enconder;
 	}
 
-	public Usuario criar(Usuario usuario) {
-		if (usuarioRepository.existsByCodLogin(usuario.getCodLogin()))
-			throw new ValidacaoException("O codLogin " + usuario.getCodLogin() + " não pode ser utilizado!");
-		final String senha = encoder.encode(usuario.getSenha());
-		return usuarioRepository.save(new Usuario(senha, usuario));
+	@Override
+	public Usuario criar(final EPermissao permissao, final Usuario usuario) {
+		final Usuario usuarioComPermissao = new Usuario(permissao, usuario);
+		if (usuarioRepository.existsByCodLogin(usuarioComPermissao.getCodLogin()))
+			throw new ValidacaoException("O codLogin " + usuarioComPermissao.getCodLogin() + " não pode ser utilizado!");
+		final String senha = encoder.encode(usuarioComPermissao.getSenha());
+		return usuarioRepository.save(new Usuario(senha, usuarioComPermissao));
 	}
 
 	@Override
@@ -42,7 +45,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 		final String codLogin = usuario.getUsuario().getCodLogin();
 		final int efeito = usuarioRepository.atualizarSenha(senha, codLogin);
 		if(efeito ==  0)
-			throw new RuntimeException("Ocorreu um erro ao processar a requisição");			
+			throw new AplicacaoException("Ocorreu um erro ao processar a requisição");
 	}
 
 }

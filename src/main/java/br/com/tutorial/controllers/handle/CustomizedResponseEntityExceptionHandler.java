@@ -1,7 +1,8 @@
 package br.com.tutorial.controllers.handle;
 
-import java.util.Date;
-
+import br.com.tutorial.domain.exceptions.ApiResponseError;
+import br.com.tutorial.domain.exceptions.RecursoNaoEncontradoException;
+import br.com.tutorial.domain.exceptions.ValidacaoException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -13,9 +14,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import br.com.tutorial.domain.exceptions.ApiResponseError;
-import br.com.tutorial.domain.exceptions.RecursoNaoEncontradoException;
-import br.com.tutorial.domain.exceptions.ValidacaoException;
+import java.util.Date;
 
 @RestController
 @ControllerAdvice

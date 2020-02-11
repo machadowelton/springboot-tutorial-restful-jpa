@@ -1,14 +1,14 @@
 package br.com.tutorial.domain.embs;
 
-import javax.persistence.Embeddable;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-
 import br.com.tutorial.domain.enums.ETipoTelefone;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 @Builder(toBuilder = true)
 @Data

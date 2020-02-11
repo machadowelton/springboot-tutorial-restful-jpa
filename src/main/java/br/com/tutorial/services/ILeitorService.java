@@ -1,9 +1,8 @@
 package br.com.tutorial.services;
 
+import br.com.tutorial.domain.Leitor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
-import br.com.tutorial.domain.Leitor;
 
 public interface ILeitorService {
 	
