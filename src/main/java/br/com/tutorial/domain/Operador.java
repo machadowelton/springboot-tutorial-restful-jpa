@@ -2,6 +2,8 @@ package br.com.tutorial.domain;
 
 import br.com.tutorial.domain.audits.AuditModel;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -17,6 +19,16 @@ import java.util.Date;
 @Table(name = "operadores")
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
+@JsonPropertyOrder(value = {
+		"id",
+		"nomeCompleto",
+		"cpf",
+		"dataNascimento",
+		"email",
+		"usuario",
+		"criadoEm",
+		"atualizadoEm"
+})
 public class Operador extends AuditModel {
 
 	private static final long serialVersionUID = -2512081201290581538L;

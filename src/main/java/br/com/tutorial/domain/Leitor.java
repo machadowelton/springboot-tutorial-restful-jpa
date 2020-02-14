@@ -22,8 +22,8 @@ import java.util.Date;
 		"nomeCompleto",
 		"cpf",
 		"dataNascimento",
-		"telefone",
 		"email",
+		"telefone",		
 		"usuario",
 		"criadoEm",
 		"atualizadoEm"

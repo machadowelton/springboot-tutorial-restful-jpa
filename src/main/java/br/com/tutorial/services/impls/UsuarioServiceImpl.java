@@ -1,16 +1,17 @@
 package br.com.tutorial.services.impls;
 
+import java.util.Optional;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
 import br.com.tutorial.domain.Usuario;
-import br.com.tutorial.domain.enums.EPermissao;
 import br.com.tutorial.domain.custom.usuario.UsuarioDTO;
+import br.com.tutorial.domain.enums.EPermissao;
 import br.com.tutorial.domain.exceptions.AplicacaoException;
 import br.com.tutorial.domain.exceptions.ValidacaoException;
 import br.com.tutorial.services.IUsuarioService;
 import br.com.tutorial.services.repository.UsuarioRepository;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class UsuarioServiceImpl implements IUsuarioService {
@@ -33,7 +34,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 	}
 
 	@Override
-	public void atualizarSenha(final UsuarioDTO usuario) {
+	public void atualizarSenha(final UsuarioDTO usuario) {		
 		if (!usuario.getSenhaNova().equals(usuario.getSenhaNovaConfirmacao()))
 			throw new ValidacaoException("A senha nova e a confirmação não coincidem");
 		final Optional<Usuario> usuarioOp = usuarioRepository.findByCodLogin(usuario.getUsuario().getCodLogin());
@@ -47,5 +48,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 		if(efeito ==  0)
 			throw new AplicacaoException("Ocorreu um erro ao processar a requisição");
 	}
+	
+	
 
 }
