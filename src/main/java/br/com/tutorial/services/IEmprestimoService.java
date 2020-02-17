@@ -3,7 +3,7 @@ package br.com.tutorial.services;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import br.com.tutorial.domain.Emprestimo;
+import br.com.tutorial.domain.entities.Emprestimo;
 
 public interface IEmprestimoService {
 	

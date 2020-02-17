@@ -5,8 +5,8 @@ import java.util.Optional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import br.com.tutorial.domain.Usuario;
 import br.com.tutorial.domain.custom.usuario.UsuarioDTO;
+import br.com.tutorial.domain.entities.Usuario;
 import br.com.tutorial.domain.enums.EPermissao;
 import br.com.tutorial.domain.exceptions.AplicacaoException;
 import br.com.tutorial.domain.exceptions.ValidacaoException;

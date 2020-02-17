@@ -8,10 +8,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import br.com.tutorial.domain.Emprestimo;
-import br.com.tutorial.domain.Leitor;
-import br.com.tutorial.domain.Livro;
-import br.com.tutorial.domain.Operador;
+import br.com.tutorial.domain.entities.Emprestimo;
+import br.com.tutorial.domain.entities.Leitor;
+import br.com.tutorial.domain.entities.Livro;
+import br.com.tutorial.domain.entities.Operador;
 import br.com.tutorial.domain.exceptions.RecursoNaoEncontradoException;
 import br.com.tutorial.services.IEmprestimoService;
 import br.com.tutorial.services.repository.EmprestimoRepository;
@@ -48,8 +48,7 @@ public class EmprestimoServiceImpl implements IEmprestimoService {
 	@Override
 	public Page<Emprestimo> listar(Pageable pageable) {
 		return emprestimoRepository.findAll(pageable);
-	}
-	
+	}			
 	
 	@Override
 	public Emprestimo criar(Emprestimo emprestimo) {

@@ -8,8 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import br.com.tutorial.domain.Livro;
-import br.com.tutorial.domain.Sessao;
+import br.com.tutorial.domain.entities.Livro;
+import br.com.tutorial.domain.entities.Sessao;
 import br.com.tutorial.domain.exceptions.RecursoNaoEncontradoException;
 import br.com.tutorial.services.ILivroService;
 import br.com.tutorial.services.repository.LivroRepository;

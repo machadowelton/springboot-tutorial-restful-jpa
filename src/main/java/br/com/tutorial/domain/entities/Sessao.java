@@ -1,4 +1,4 @@
-package br.com.tutorial.domain;
+package br.com.tutorial.domain.entities;
 
 
 

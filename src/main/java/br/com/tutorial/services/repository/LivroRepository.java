@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import br.com.tutorial.domain.Livro;
+import br.com.tutorial.domain.entities.Livro;
 
 public interface LivroRepository extends JpaRepository<Livro, Long> {
 	

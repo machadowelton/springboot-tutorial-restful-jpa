@@ -3,7 +3,7 @@ package br.com.tutorial.services;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import br.com.tutorial.domain.Livro;
+import br.com.tutorial.domain.entities.Livro;
 
 public interface ILivroService {
 	

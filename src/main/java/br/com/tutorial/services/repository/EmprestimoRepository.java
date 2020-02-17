@@ -4,7 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import br.com.tutorial.domain.Emprestimo;
+import br.com.tutorial.domain.entities.Emprestimo;
 
 public interface EmprestimoRepository extends JpaRepository<Emprestimo, Long> {
 	

@@ -6,8 +6,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import br.com.tutorial.domain.Leitor;
-import br.com.tutorial.domain.Usuario;
+import br.com.tutorial.domain.entities.Leitor;
+import br.com.tutorial.domain.entities.Usuario;
 import br.com.tutorial.domain.enums.EPermissao;
 import br.com.tutorial.domain.exceptions.RecursoNaoEncontradoException;
 import br.com.tutorial.services.ILeitorService;

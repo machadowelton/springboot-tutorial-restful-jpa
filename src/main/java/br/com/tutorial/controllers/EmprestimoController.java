@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,9 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.tutorial.domain.Emprestimo;
+import br.com.tutorial.domain.entities.Emprestimo;
 import br.com.tutorial.services.impls.EmprestimoServiceImpl;
 
 @RestController
@@ -35,23 +35,27 @@ public class EmprestimoController {
 		return emprestimoServiceImpl.listar(pageable);
 	}
 	
+	@ResponseStatus(value = HttpStatus.CREATED)
 	@PostMapping
-	public ResponseEntity<Emprestimo> criar(@RequestBody Emprestimo emprestimo) {
-		return new ResponseEntity<Emprestimo>(emprestimoServiceImpl.criar(emprestimo), HttpStatus.CREATED);
+	public Emprestimo criar(@RequestBody Emprestimo emprestimo) {
+		return emprestimoServiceImpl.criar(emprestimo);
 	}
 	
+	
+	@ResponseStatus(value = HttpStatus.ACCEPTED)
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Emprestimo> atualizar(
+	public Emprestimo atualizar(
 			@PathVariable("id") Long id,
 			@RequestBody Emprestimo emprestimo
 			) {
-		return new ResponseEntity<Emprestimo>(emprestimoServiceImpl.atualizar(id, emprestimo), HttpStatus.ACCEPTED);
+		return emprestimoServiceImpl.atualizar(id, emprestimo);
 	}
 	
+	
+	@ResponseStatus(value = HttpStatus.NO_CONTENT)
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<?> removerPorId(@PathVariable("id") Long id) {
+	public void removerPorId(@PathVariable("id") Long id) {
 		emprestimoServiceImpl.removerPorId(id);
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 	
 	@GetMapping(value = "leitor/{idLeitor}")

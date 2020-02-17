@@ -1,6 +1,6 @@
 package br.com.tutorial.domain.custom.usuario;
 
-import br.com.tutorial.domain.Usuario;
+import br.com.tutorial.domain.entities.Usuario;
 import lombok.*;
 
 @Builder(toBuilder = true)

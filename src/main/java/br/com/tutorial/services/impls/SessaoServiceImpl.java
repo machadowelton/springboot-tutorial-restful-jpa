@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import br.com.tutorial.domain.Sessao;
+import br.com.tutorial.domain.entities.Sessao;
 import br.com.tutorial.domain.exceptions.RecursoNaoEncontradoException;
 import br.com.tutorial.services.ISessaoService;
 import br.com.tutorial.services.repository.SessaoRepository;
