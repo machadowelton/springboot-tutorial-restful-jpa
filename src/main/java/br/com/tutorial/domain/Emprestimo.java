@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -78,8 +79,7 @@ public class Emprestimo extends AuditModel {
             cascade = {
                     CascadeType.PERSIST,
                     CascadeType.MERGE
-                },
-			mappedBy = "emprestimos")
+                })
 	private Set<Livro> livros = new HashSet<Livro>();
 	
 	@ManyToOne
@@ -98,6 +98,16 @@ public class Emprestimo extends AuditModel {
 		this.livros = livros;
 		this.leitor = leitor;
 		this.operador = operador;
+	}
+	
+	public Emprestimo(final Long id, final Emprestimo emprestimo) {
+		this.id = emprestimo.id;
+		this.dataRetirada = emprestimo.dataRetirada;
+		this.dataDevolucaoCalculada = emprestimo.dataDevolucaoCalculada;
+		this.dataRealDevolucao = emprestimo.dataRealDevolucao;
+		this.leitor = emprestimo.leitor;
+		this.operador = emprestimo.operador;
+		this.livros = emprestimo.livros;
 	}
 
 }

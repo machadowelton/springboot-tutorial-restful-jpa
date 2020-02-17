@@ -14,6 +14,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import br.com.tutorial.domain.audits.AuditModel;
@@ -65,6 +66,7 @@ public class Sessao extends AuditModel {
 	private String localizacao;
 	
 	@OneToMany(mappedBy = "sessao")
+	@JsonIgnore
 	private List<Livro> livros;
 	
 	public Sessao(final Long id, final Sessao sessao) {

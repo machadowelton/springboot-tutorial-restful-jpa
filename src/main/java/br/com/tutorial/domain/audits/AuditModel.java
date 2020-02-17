@@ -23,13 +23,13 @@ public abstract class AuditModel implements Serializable  {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "criado_em", nullable = false, updatable = false)
 	@CreatedDate
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss:sss z")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy'T'HH:mm:ss:sssZ")
 	private Date criadoEm;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "atualizado_em", nullable = false)
 	@LastModifiedDate
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss:sss z")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy'T'HH:mm:ss:sssZ")
 	private Date atualizadoEm;
 
 	public Date getCriadoEm() {

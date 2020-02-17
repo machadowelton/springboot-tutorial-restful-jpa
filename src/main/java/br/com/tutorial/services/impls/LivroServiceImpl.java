@@ -1,6 +1,5 @@
 package br.com.tutorial.services.impls;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -64,7 +63,7 @@ public class LivroServiceImpl implements ILivroService {
 		livroRepository.deleteByIdAndSessaoId(id, sessaoId);
 	}
 	
-	protected Set<Livro> buscarPorListaId(List<Long> ids) {
+	protected Set<Livro> listarPorIds(Set<Long> ids) {
 		return livroRepository.findAllById(ids).stream().collect(Collectors.toSet());
 	}
 

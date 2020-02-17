@@ -16,6 +16,8 @@ public interface IEmprestimoService {
 	
 	Emprestimo atualizar(Long id, Emprestimo emprestimo);
 	
-	void removerPorId(Long id);
+	void removerPorId(Long id);	
+	
+	Page<Emprestimo> listarPorLeitorId(Long idLeitor, Pageable pageable);
 	
 }

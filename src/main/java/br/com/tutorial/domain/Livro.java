@@ -81,21 +81,12 @@ public class Livro extends AuditModel {
 	@Enumerated(EnumType.STRING)
 	private EStatusLivro status;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "sessao_id", referencedColumnName = "id")
 	@JsonIgnore
 	private Sessao sessao;
 	
-	@ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                CascadeType.PERSIST,
-                CascadeType.MERGE
-            })
-	@JoinTable(
-			name = "emprestimos_livros",
-			joinColumns = @JoinColumn(name = "livro_id"),
-			inverseJoinColumns = @JoinColumn(name = "emprestimo_id")
-			)	
+	@ManyToMany(mappedBy = "livros")	
 	@ToString.Exclude
 	@EqualsAndHashCode.Exclude
 	@JsonIgnore
