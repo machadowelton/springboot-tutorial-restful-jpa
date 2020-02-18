@@ -1,4 +1,4 @@
-package br.com.tutorial.domain.custom.usuario;
+package br.com.tutorial.domain.dto.usuario;
 
 import br.com.tutorial.domain.entities.Usuario;
 import lombok.*;
