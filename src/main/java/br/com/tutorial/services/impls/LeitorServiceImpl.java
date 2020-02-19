@@ -29,13 +29,13 @@ public class LeitorServiceImpl implements ILeitorService {
 	@Override
 	public Leitor buscarPorId(final Long id) {
 		final Optional<Leitor> leitor = leitorRepository.findById(id);
-		if(!leitor.isPresent())
+		if (!leitor.isPresent())
 			throw new RecursoNaoEncontradoException("Nenhum leitor encontrado pelo id:" + id);
 		return leitor.get();
 	}
 
 	@Override
-	public Page<Leitor> listar(final Pageable pageable) {		
+	public Page<Leitor> listar(final Pageable pageable) {
 		return leitorRepository.findAll(pageable);
 	}
 
@@ -47,14 +47,14 @@ public class LeitorServiceImpl implements ILeitorService {
 
 	@Override
 	public Leitor atualizar(final Long id, final Leitor leitor) {
-		if(!leitorRepository.existsById(id))
+		if (!leitorRepository.existsById(id))
 			throw new RecursoNaoEncontradoException("Nenhum leitor encontrado pelo id: " + id);
 		return leitorRepository.save(new Leitor(id, leitor));
 	}
 
 	@Override
 	public void removerPorId(final Long id) {
-		if(!leitorRepository.existsById(id))
+		if (!leitorRepository.existsById(id))
 			throw new RecursoNaoEncontradoException("Nenhum leitor encontrado pelo id: " + id);
 		leitorRepository.deleteById(id);
 	}

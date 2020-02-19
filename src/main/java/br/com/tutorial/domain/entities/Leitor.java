@@ -1,35 +1,41 @@
 package br.com.tutorial.domain.entities;
 
-import br.com.tutorial.domain.audits.AuditModel;
-import br.com.tutorial.domain.embs.Telefone;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import lombok.*;
+import java.util.Date;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.Date;
+import br.com.tutorial.domain.audits.AuditModel;
+import br.com.tutorial.domain.dto.v1.LeitorDTO;
+import br.com.tutorial.domain.embs.Telefone;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder(toBuilder = true)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "leitores")
-@JsonPropertyOrder(value = {
-		"id",
-		"nomeCompleto",
-		"cpf",
-		"dataNascimento",
-		"email",
-		"telefone",		
-		"usuario",
-		"criadoEm",
-		"atualizadoEm"
-})
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
+@Entity
+@Table(name = "leitores")
 public class Leitor extends AuditModel {
 
 	private static final long serialVersionUID = 2936654437260510401L;
@@ -56,8 +62,7 @@ public class Leitor extends AuditModel {
 	@Column(unique = true)
 	private String cpf;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+	@Temporal(TemporalType.TIMESTAMP)	
 	private Date dataNascimento;
 	
 	@Embedded
@@ -84,6 +89,17 @@ public class Leitor extends AuditModel {
 		this.dataNascimento = leitor.dataNascimento;
 		this.telefone = leitor.telefone;
 		this.usuario = usuario;
+	}
+	
+	public Leitor(final LeitorDTO leitor) {
+		this.setCriadoEm(leitor.getCriadoEm());
+		this.setAtualizadoEm(leitor.getAtualizadoEm());
+		this.nomeCompleto = leitor.getNomeCompleto();
+		this.cpf = leitor.getCpf();
+		this.email = leitor.getEmail();
+		this.dataNascimento = leitor.getDataNascimento();
+		this.telefone = new Telefone(leitor.getTelefone());
+		this.usuario = new Usuario(leitor.getUsuario());
 	}
 	
 }

@@ -1,8 +1,10 @@
 package br.com.tutorial.domain.entities;
 
 import java.util.Date;
+
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -11,7 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -21,9 +22,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
 import br.com.tutorial.domain.audits.AuditModel;
+import br.com.tutorial.domain.dto.v1.EmprestimoDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -34,21 +34,10 @@ import lombok.ToString;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "emprestimos")
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-@JsonPropertyOrder(value = {
-		"id",
-		"dataRetirada",
-		"dataDevolucaoCalculada",
-		"dataRealDevolucao",
-		"leitor",
-		"operador",
-		"livros",
-		"criadoEm",
-		"atualizadoEm"
-})
+@Entity
+@Table(name = "emprestimos")
 public class Emprestimo extends AuditModel {
 
 	private static final long serialVersionUID = 5082225834165207009L;
@@ -108,6 +97,18 @@ public class Emprestimo extends AuditModel {
 		this.leitor = emprestimo.leitor;
 		this.operador = emprestimo.operador;
 		this.livros = emprestimo.livros;
+	}
+	
+	public Emprestimo(final EmprestimoDTO emprestimo) {
+		this.setCriadoEm(emprestimo.getCriadoEm());
+		this.setAtualizadoEm(emprestimo.getAtualizadoEm());
+		this.id = emprestimo.getId();
+		this.dataRetirada = emprestimo.getDataRetirada();
+		this.dataDevolucaoCalculada = emprestimo.getDataDevolucaoCalculada();
+		this.dataRealDevolucao = emprestimo.getDataRealDevolucao();
+		this.leitor = new Leitor(emprestimo.getLeitor());
+		this.operador = new Operador(emprestimo.getOperador());
+		this.livros = emprestimo.getLivros().stream().map(Livro::new).collect(Collectors.toSet());		
 	}
 
 }

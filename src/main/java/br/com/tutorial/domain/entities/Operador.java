@@ -1,34 +1,41 @@
 package br.com.tutorial.domain.entities;
 
-import br.com.tutorial.domain.audits.AuditModel;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.util.Date;
 
-import lombok.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+import br.com.tutorial.domain.audits.AuditModel;
+import br.com.tutorial.domain.dto.v1.OperadorDTO;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder(toBuilder = true)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "operadores")
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-@JsonPropertyOrder(value = {
-		"id",
-		"nomeCompleto",
-		"cpf",
-		"dataNascimento",
-		"email",
-		"usuario",
-		"criadoEm",
-		"atualizadoEm"
-})
+@Entity
+@Table(name = "operadores")
 public class Operador extends AuditModel {
 
 	private static final long serialVersionUID = -2512081201290581538L;
@@ -56,7 +63,6 @@ public class Operador extends AuditModel {
 	private String cpf;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
 	private Date dataNascimento;	
 	
 	@OneToOne(cascade = CascadeType.ALL)
@@ -78,6 +84,17 @@ public class Operador extends AuditModel {
 		this.cpf = operador.cpf;
 		this.dataNascimento = operador.dataNascimento;
 		this.usuario = operador.getUsuario();
+	}
+	
+	public Operador(final OperadorDTO operador) {
+		this.setCriadoEm(operador.getCriadoEm());
+		this.setAtualizadoEm(operador.getAtualizadoEm());
+		this.id = operador.getId();
+		this.nomeCompleto = operador.getNomeCompleto();
+		this.cpf = operador.getCpf();
+		this.dataNascimento = operador.getDatNascimento();
+		this.email = operador.getEmail();
+		this.usuario = new Usuario(operador.getUsuario());
 	}
 
 }

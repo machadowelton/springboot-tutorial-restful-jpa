@@ -24,9 +24,9 @@ public class EmprestimoDTO {
 	
 	private Date dataRetirada;
 	
-	private Date dataDevolucacaoCalculada;
+	private Date dataDevolucaoCalculada;
 	
-	private Date dataDevolucacaoReal;
+	private Date dataRealDevolucao;
 	
 	private OperadorDTO operador;
 	
@@ -39,11 +39,11 @@ public class EmprestimoDTO {
 		this.atualizadoEm = emprestimo.getAtualizadoEm();
 		this.id = emprestimo.getId();
 		this.dataRetirada = emprestimo.getDataRetirada();
-		this.dataDevolucacaoCalculada = emprestimo.getDataDevolucaoCalculada();
-		this.dataDevolucacaoReal = emprestimo.getDataRealDevolucao();
+		this.dataDevolucaoCalculada = emprestimo.getDataDevolucaoCalculada();
+		this.dataRealDevolucao = emprestimo.getDataRealDevolucao();
 		this.operador = new OperadorDTO(emprestimo.getOperador());
 		this.leitor = new LeitorDTO(emprestimo.getLeitor());
-		this.livros = emprestimo.getLivros().stream().map(m -> new LivroDTO(m)).collect(Collectors.toSet());
+		this.livros = emprestimo.getLivros().stream().map(LivroDTO::new).collect(Collectors.toSet());
 	}
 	
 }

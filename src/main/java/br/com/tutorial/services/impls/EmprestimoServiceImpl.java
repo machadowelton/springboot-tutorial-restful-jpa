@@ -52,10 +52,11 @@ public class EmprestimoServiceImpl implements IEmprestimoService {
 	
 	@Override
 	public Emprestimo criar(Emprestimo emprestimo) {
-		Leitor leitor = leitorServiceImpl.buscarPorId(emprestimo.getLeitor().getId());
-		Operador operador = operadorServiceImpl.buscarPorId(emprestimo.getOperador().getId());
-		Set<Livro> livros = livroServiceImpl.listarPorIds(emprestimo.getLivros().stream().map(m -> m.getId()).collect(Collectors.toSet()));
-		return emprestimoRepository.save(new Emprestimo(emprestimo, leitor, operador, livros));	
+		//Leitor leitor = leitorServiceImpl.buscarPorId(emprestimo.getLeitor().getId());
+		//Operador operador = operadorServiceImpl.buscarPorId(emprestimo.getOperador().getId());
+		//Set<Livro> livros = livroServiceImpl.listarPorIds(emprestimo.getLivros().stream().map(m -> m.getId()).collect(Collectors.toSet()));
+		//return emprestimoRepository.save(new Emprestimo(emprestimo, leitor, operador, livros));
+		return null;
 	}
 
 	@Override

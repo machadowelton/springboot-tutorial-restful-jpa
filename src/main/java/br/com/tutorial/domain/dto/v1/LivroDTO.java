@@ -19,6 +19,8 @@ public class LivroDTO {
 	
 	private Date atualizadoEm;
 	
+	private Long id;
+	
 	private String titulo;
 	
 	private String sinopse;
@@ -34,6 +36,7 @@ public class LivroDTO {
 	public LivroDTO(Livro livro) {
 		this.criadoEm = livro.getCriadoEm();
 		this.atualizadoEm = livro.getAtualizadoEm();
+		this.id = livro.getId();
 		this.titulo = livro.getTitulo();
 		this.autor = livro.getAutor();
 		this.dataLancamento = livro.getDataLancamento();

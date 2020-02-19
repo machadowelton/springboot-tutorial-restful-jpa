@@ -1,5 +1,6 @@
-package br.com.tutorial.domain.dto.usuario;
+package br.com.tutorial.domain.dto.atualiza_senha_usuario;
 
+import br.com.tutorial.domain.dto.v1.UsuarioDTO;
 import br.com.tutorial.domain.entities.Usuario;
 import lombok.*;
 
@@ -7,12 +8,12 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UsuarioDTO {
+public class AlteracaoSenhaUsuarioDTO {
 	
 	private String senhaNova;
 	
 	private String senhaNovaConfirmacao;
 	
-	private Usuario usuario;
+	private UsuarioDTO usuario;
 
 }

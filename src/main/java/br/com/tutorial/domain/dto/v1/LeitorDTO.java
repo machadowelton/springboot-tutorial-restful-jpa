@@ -2,13 +2,20 @@ package br.com.tutorial.domain.dto.v1;
 
 import java.util.Date;
 
-import br.com.tutorial.domain.dto.v1.embs.TelefoneDTO;
+import javax.validation.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import br.com.tutorial.domain.entities.Leitor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
+@JsonPropertyOrder(value = {
+		"criadoEm","atualizadoEm","id","nomeCompleto","cpf","dataNascimento","email","telefone","usuario"
+})
 @Builder(toBuilder = true)
 @Data
 @AllArgsConstructor
@@ -21,8 +28,10 @@ public class LeitorDTO {
 	
 	private Long id;
 	
+	@NotEmpty(message = "O nomeCompleto não pode ser nulo ou vazio ")
 	private String nomeCompleto;
 	
+	@NotEmpty(message = "O Cpf não pode ser nulo ou vazio")
 	private String cpf;
 	
 	private Date dataNascimento;

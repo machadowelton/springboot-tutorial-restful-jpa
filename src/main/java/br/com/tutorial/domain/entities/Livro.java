@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -13,7 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -21,11 +19,10 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import br.com.tutorial.domain.audits.AuditModel;
+import br.com.tutorial.domain.dto.v1.LivroDTO;
 import br.com.tutorial.domain.enums.EStatusLivro;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,21 +35,10 @@ import lombok.ToString;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "livros")
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-@JsonPropertyOrder(value = {
-		"id",
-		"titulo",
-		"sinopse",
-		"autor",
-		"dataLancamento",
-		"emprestimos",
-		"status",
-		"criadoEm",
-		"atualizadoEm"
-})
+@Entity
+@Table(name = "livros")
 public class Livro extends AuditModel {
 
 	private static final long serialVersionUID = -7359271269535007899L;
@@ -75,7 +61,6 @@ public class Livro extends AuditModel {
 	
 	private String autor;
 	
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
 	private Date dataLancamento;
 	
 	@Enumerated(EnumType.STRING)
@@ -119,6 +104,18 @@ public class Livro extends AuditModel {
 		this.dataLancamento = livro.dataLancamento;
 		this.status = livro.status;
 		this.emprestimos = emprestimos;
+	}
+	
+	public Livro(final LivroDTO livro) {
+		this.setCriadoEm(livro.getCriadoEm());
+		this.setAtualizadoEm(livro.getAtualizadoEm());
+		this.id = livro.getId();
+		this.titulo = livro.getTitulo();
+		this.sinopse = livro.getSinopse();
+		this.dataLancamento = livro.getDataLancamento();
+		this.autor = livro.getAutor();
+		this.status = livro.getStatus();
+		this.sessao = new Sessao(livro.getSessao());
 	}
 
 }

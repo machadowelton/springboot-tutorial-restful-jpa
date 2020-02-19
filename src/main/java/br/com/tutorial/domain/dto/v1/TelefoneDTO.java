@@ -1,4 +1,4 @@
-package br.com.tutorial.domain.dto.v1.embs;
+package br.com.tutorial.domain.dto.v1;
 
 import br.com.tutorial.domain.embs.Telefone;
 import br.com.tutorial.domain.enums.ETipoTelefone;

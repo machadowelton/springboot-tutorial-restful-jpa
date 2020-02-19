@@ -15,9 +15,9 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import br.com.tutorial.domain.audits.AuditModel;
+import br.com.tutorial.domain.dto.v1.SessaoDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,19 +29,10 @@ import lombok.ToString;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "sessoes")
-@Entity
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-@JsonPropertyOrder(value = {
-		"id",
-		"nome",
-		"descricao",
-		"localizacao",
-		"livros",
-		"criadoEm",
-		"atualizadoEm"
-})
+@Table(name = "sessoes")
+@Entity
 public class Sessao extends AuditModel {
 
 	private static final long serialVersionUID = 2349900725868829355L;
@@ -75,6 +66,15 @@ public class Sessao extends AuditModel {
 		this.descricao = sessao.descricao;
 		this.localizacao = sessao.localizacao;
 		if(sessao.livros != null) this.livros = sessao.livros;
+	}
+	
+	public Sessao(final SessaoDTO sessao) {
+		sessao.setCriadoEm(sessao.getCriadoEm());
+		sessao.setAtualizadoEm(sessao.getAtualizadoEm());
+		sessao.setId(sessao.getId());
+		sessao.setNome(sessao.getNome());
+		sessao.setDescricao(sessao.getDescricao());
+		sessao.setLocalizacao(sessao.getLocalizacao());
 	}
 
 }

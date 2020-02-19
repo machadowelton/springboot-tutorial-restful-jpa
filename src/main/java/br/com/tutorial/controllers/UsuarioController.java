@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.tutorial.domain.dto.usuario.UsuarioDTO;
+import br.com.tutorial.domain.dto.atualiza_senha_usuario.AlteracaoSenhaUsuarioDTO;
 import br.com.tutorial.services.impls.UsuarioServiceImpl;
 
 @RestController
@@ -21,7 +21,7 @@ public class UsuarioController {
 		
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
 	@PatchMapping(value = "/atualizar_senha")
-	public void atualizarSenha(@RequestBody UsuarioDTO usuario) {
+	public void atualizarSenha(@RequestBody AlteracaoSenhaUsuarioDTO usuario) {
 		usuarioServiceImpl.atualizarSenha(usuario);
 	}
 	

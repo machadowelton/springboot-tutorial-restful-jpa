@@ -1,5 +1,6 @@
 package br.com.tutorial.domain.embs;
 
+import br.com.tutorial.domain.dto.v1.TelefoneDTO;
 import br.com.tutorial.domain.enums.ETipoTelefone;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,5 +26,12 @@ public class Telefone {
 	private Integer ddd;
 	
 	private Long numero;
+	
+	public Telefone(final TelefoneDTO telefone) {
+		this.tipoTelefone = telefone.getTipoTelefone();
+		this.ddi = telefone.getDdi();
+		this.ddd = telefone.getDdd();
+		this.numero = telefone.getNumero();
+	}
 	
 }

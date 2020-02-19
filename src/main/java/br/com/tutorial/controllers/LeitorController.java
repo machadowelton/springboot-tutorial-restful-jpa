@@ -1,6 +1,8 @@
 package br.com.tutorial.controllers;
 
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.tutorial.domain.dto.v1.LeitorDTO;
 import br.com.tutorial.domain.entities.Leitor;
 import br.com.tutorial.services.impls.LeitorServiceImpl;
 
@@ -26,25 +29,29 @@ public class LeitorController {
 	private LeitorServiceImpl leitorServiceImpl;
 	
 	@GetMapping(value = "/{id}")
-	public Leitor buscarPorId(@PathVariable("id") Long idLeitor) {
-		return leitorServiceImpl.buscarPorId(idLeitor);
+	public LeitorDTO buscarPorId(@PathVariable("id") Long idLeitor) {
+		return new LeitorDTO(leitorServiceImpl.buscarPorId(idLeitor));
 	}
 	
 	@GetMapping
-	public Page<Leitor> listar(Pageable pageable) {
-		return leitorServiceImpl.listar(pageable);
+	public Page<LeitorDTO> listar(Pageable pageable) {
+		return leitorServiceImpl.listar(pageable).map(LeitorDTO::new);
 	}
 	
 	@ResponseStatus(value = HttpStatus.CREATED)
 	@PostMapping
-	public Leitor criar(@RequestBody Leitor leitor) {
-		return leitorServiceImpl.criar(leitor);
+	public LeitorDTO criar(@Valid @RequestBody LeitorDTO leitor) {
+		Leitor leitorEntity = new Leitor(leitor);
+		return new LeitorDTO(leitorServiceImpl.criar(leitorEntity));
 	}
 	
 	@ResponseStatus(value = HttpStatus.ACCEPTED)
 	@PutMapping(value = "/{id}")
-	public Leitor atualizar(@PathVariable("id") Long idLeitor, @RequestBody Leitor leitor) {
-		return leitorServiceImpl.atualizar(idLeitor, leitor);
+	public LeitorDTO atualizar(
+			@PathVariable("id") Long idLeitor, 
+			@RequestBody LeitorDTO leitor) {
+		Leitor leitorEntity = new Leitor(leitor);
+		return new LeitorDTO(leitorServiceImpl.atualizar(idLeitor, leitorEntity));
 	}
 	
 	
