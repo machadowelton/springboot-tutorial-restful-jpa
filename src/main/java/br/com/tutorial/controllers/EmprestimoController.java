@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.tutorial.domain.dto.v1.EmprestimoDTO;
 import br.com.tutorial.domain.entities.Emprestimo;
 import br.com.tutorial.services.impls.EmprestimoServiceImpl;
 
@@ -26,29 +27,29 @@ public class EmprestimoController {
 	private EmprestimoServiceImpl emprestimoServiceImpl;
 	
 	@GetMapping(value = "/{id}")
-	public Emprestimo buscarPorId(@PathVariable("id") Long id) {
-		return emprestimoServiceImpl.buscarPorId(id);
+	public EmprestimoDTO buscarPorId(@PathVariable("id") Long id) {
+		return new EmprestimoDTO(emprestimoServiceImpl.buscarPorId(id));
 	}
 	
 	@GetMapping
-	public Page<Emprestimo> listar(Pageable pageable) {
-		return emprestimoServiceImpl.listar(pageable);
+	public Page<EmprestimoDTO> listar(Pageable pageable) {
+		return emprestimoServiceImpl.listar(pageable).map(EmprestimoDTO::new);
 	}
 	
 	@ResponseStatus(value = HttpStatus.CREATED)
 	@PostMapping
-	public Emprestimo criar(@RequestBody Emprestimo emprestimo) {
-		return emprestimoServiceImpl.criar(emprestimo);
+	public EmprestimoDTO criar(@RequestBody EmprestimoDTO emprestimo) {
+		return new EmprestimoDTO(emprestimoServiceImpl.criar(new Emprestimo(emprestimo)));
 	}
 	
 	
 	@ResponseStatus(value = HttpStatus.ACCEPTED)
 	@PutMapping(value = "/{id}")
-	public Emprestimo atualizar(
+	public EmprestimoDTO atualizar(
 			@PathVariable("id") Long id,
-			@RequestBody Emprestimo emprestimo
+			@RequestBody EmprestimoDTO emprestimo
 			) {
-		return emprestimoServiceImpl.atualizar(id, emprestimo);
+		return new EmprestimoDTO(emprestimoServiceImpl.atualizar(id, new Emprestimo(emprestimo)));
 	}
 	
 	
@@ -59,8 +60,8 @@ public class EmprestimoController {
 	}
 	
 	@GetMapping(value = "leitor/{idLeitor}")
-	public Page<Emprestimo> listarPorLeitorId(@PathVariable("id") Long idLeitor, Pageable pageable) {
-		return emprestimoServiceImpl.listarPorLeitorId(idLeitor, pageable);
+	public Page<EmprestimoDTO> listarPorLeitorId(@PathVariable("id") Long idLeitor, Pageable pageable) {
+		return emprestimoServiceImpl.listarPorLeitorId(idLeitor, pageable).map(EmprestimoDTO::new);
 	}
 	
 }

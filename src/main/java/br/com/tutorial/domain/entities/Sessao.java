@@ -61,6 +61,7 @@ public class Sessao extends AuditModel {
 	private List<Livro> livros;
 	
 	public Sessao(final Long id, final Sessao sessao) {
+		super(sessao.getCriadoEm(), sessao.getAtualizadoEm());
 		this.id = id;
 		this.nome = sessao.nome;
 		this.descricao = sessao.descricao;
@@ -68,13 +69,28 @@ public class Sessao extends AuditModel {
 		if(sessao.livros != null) this.livros = sessao.livros;
 	}
 	
+//	public Sessao(final SessaoDTO sessao) {
+//		sessao.setCriadoEm(sessao.getCriadoEm());
+//		sessao.setAtualizadoEm(sessao.getAtualizadoEm());
+//		sessao.setId(sessao.getId());
+//		sessao.setNome(sessao.getNome());
+//		sessao.setDescricao(sessao.getDescricao());
+//		sessao.setLocalizacao(sessao.getLocalizacao());
+//	}
+	
+	@Builder
 	public Sessao(final SessaoDTO sessao) {
-		sessao.setCriadoEm(sessao.getCriadoEm());
-		sessao.setAtualizadoEm(sessao.getAtualizadoEm());
-		sessao.setId(sessao.getId());
-		sessao.setNome(sessao.getNome());
-		sessao.setDescricao(sessao.getDescricao());
-		sessao.setLocalizacao(sessao.getLocalizacao());
+		super(sessao.getCriadoEm(), sessao.getAtualizadoEm());
+		this.id = sessao.getId();
+		this.nome = sessao.getNome();
+		this.descricao = sessao.getDescricao();
+		this.localizacao = sessao.getLocalizacao();
 	}
+	
+	public static Sessao map(final SessaoDTO sessao) {
+		return Sessao.builder().sessao(sessao).build();
+	}
+	
+	
 
 }

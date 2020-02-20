@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.tutorial.domain.dto.v1.SessaoDTO;
 import br.com.tutorial.domain.entities.Sessao;
 import br.com.tutorial.services.impls.SessaoServiceImpl;
 
@@ -26,26 +27,30 @@ public class SessaoController {
 	}
 
 	@GetMapping(value = "/{id}")
-	public Sessao buscarPorId(@PathVariable("id") Long id) {
-		return sessaoServiceImpl.buscarPorId(id);
+	public SessaoDTO buscarPorId(@PathVariable("id") Long id) {
+		//return new SessaoDTO(sessaoServiceImpl.buscarPorId(id));
+		return SessaoDTO.map(sessaoServiceImpl.buscarPorId(id));
 	}
 
 	@GetMapping
-	public Page<Sessao> listar(Pageable pageable) {
-		return sessaoServiceImpl.listar(pageable);
+	public Page<SessaoDTO> listar(Pageable pageable) {
+		return sessaoServiceImpl.listar(pageable).map(SessaoDTO::map);
 	}
 
 	
 	@ResponseStatus(value = HttpStatus.CREATED)
 	@PostMapping
-	public Sessao criar(@RequestBody Sessao sessao) {
-		return sessaoServiceImpl.criar(sessao);
+	public SessaoDTO criar(@RequestBody SessaoDTO sessao) {
+		//return new SessaoDTO(sessaoServiceImpl.criar(new Sessao(sessao)));
+		//return SessaoDTO.map(sessaoServiceImpl.criar(new Sessao(sessao)));
+		return SessaoDTO.map(sessaoServiceImpl.criar(Sessao.map(sessao)));
 	}
 
 	@ResponseStatus(value = HttpStatus.ACCEPTED)
 	@PutMapping(value = "/{id}")
-	public Sessao atualizar(@PathVariable("id") Long id, @RequestBody Sessao sessao) {
-		return sessaoServiceImpl.atualizar(id, sessao);
+	public SessaoDTO atualizar(@PathVariable("id") Long id, @RequestBody SessaoDTO sessao) {
+		//return new SessaoDTO(sessaoServiceImpl.atualizar(id, new Sessao(sessao)));
+		return SessaoDTO.map(sessaoServiceImpl.atualizar(id, Sessao.map(sessao)));
 	}
 	
 }

@@ -26,7 +26,7 @@ public class SessaoDTO {
 	
 	private String localizacao;
 	
-	private Long quantidadeLivros;
+	private int quantidadeLivros;
 	
 	public SessaoDTO(Sessao sessao) {
 		this.criadoEm = sessao.getCriadoEm();
@@ -35,7 +35,21 @@ public class SessaoDTO {
 		this.nome = sessao.getNome();
 		this.descricao = sessao.getDescricao();
 		this.localizacao = sessao.getLocalizacao();
-		this.quantidadeLivros = sessao.getLivros() != null ?  sessao.getLivros().size() : 0L;
+		this.quantidadeLivros = sessao.getLivros() != null ?  sessao.getLivros().size() : 0;
 	}
+	
+	public static SessaoDTO map(Sessao sessao) {
+		return SessaoDTO.builder()
+					.criadoEm(sessao.getCriadoEm())
+					.atualizadoEm(sessao.getAtualizadoEm())
+					.id(sessao.getId())
+					.nome(sessao.getNome())
+					.descricao(sessao.getDescricao())
+					.localizacao(sessao.getLocalizacao())
+					.quantidadeLivros(sessao.getLivros().size())
+					.build();
+	}
+	
+	
 	
 }

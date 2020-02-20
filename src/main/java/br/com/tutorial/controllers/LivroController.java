@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.tutorial.domain.dto.v1.LivroDTO;
 import br.com.tutorial.domain.entities.Livro;
 import br.com.tutorial.services.impls.LivroServiceImpl;
 
@@ -28,35 +29,35 @@ public class LivroController {
 	}
 	
 	@GetMapping(value = "/{id}")
-	public Livro buscarPorIdESessaoId(
+	public LivroDTO buscarPorIdESessaoId(
 			@PathVariable("idSessao") Long sessaoId,
 			@PathVariable("id") Long id
 			) {
-		return livroServiceImpl.buscarPorIdESessaoId(id, sessaoId);
+		return new LivroDTO(livroServiceImpl.buscarPorIdESessaoId(id, sessaoId));
 	}
 	
 	@GetMapping
-	public Page<Livro> listarPorSessaoId(@PathVariable("idSessao") Long sessaoId, Pageable pageable) {
-		return livroServiceImpl.listarPorSessaoId(sessaoId, pageable);
+	public Page<LivroDTO> listarPorSessaoId(@PathVariable("idSessao") Long sessaoId, Pageable pageable) {
+		return livroServiceImpl.listarPorSessaoId(sessaoId, pageable).map(LivroDTO::new);
 	}
 	
 	@ResponseStatus(value = HttpStatus.CREATED)
 	@PostMapping
-	public Livro criar(
+	public LivroDTO criar(
 			@PathVariable("idSessao") Long sessaoId,
-			@RequestBody Livro livro
+			@RequestBody LivroDTO livro
 			) {
-		return livroServiceImpl.criar(sessaoId, livro);
+		return new LivroDTO(livroServiceImpl.criar(sessaoId, new Livro(livro)));
 	}
 	
 	@ResponseStatus(value = HttpStatus.ACCEPTED)
 	@PutMapping(value = "/{id}")
-	public Livro atualizar(
+	public LivroDTO atualizar(
 			@PathVariable("idSessao") Long sessaoId,
 			@PathVariable("id") Long id,
-			@RequestBody Livro livro
+			@RequestBody LivroDTO livro
 			) {
-		return livroServiceImpl.atualizar(id, sessaoId, livro);
+		return new LivroDTO(livroServiceImpl.atualizar(id, sessaoId, new Livro(livro)));
 	}
 	
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)

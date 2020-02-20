@@ -1,6 +1,5 @@
 package br.com.tutorial.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.tutorial.domain.dto.v1.OperadorDTO;
 import br.com.tutorial.domain.entities.Operador;
 import br.com.tutorial.services.impls.OperadorServiceImpl;
 
@@ -21,7 +21,6 @@ import br.com.tutorial.services.impls.OperadorServiceImpl;
 @RequestMapping(value = "/operadores")
 public class OperadorController {
 	
-	@Autowired
 	private final OperadorServiceImpl operadorServiceImpl;
 	
 	
@@ -30,28 +29,28 @@ public class OperadorController {
 	}
 	
 	@GetMapping(value = "/{id}")
-	public Operador buscarPorId(@PathVariable("id") Long id) {
-		return operadorServiceImpl.buscarPorId(id);
+	public OperadorDTO buscarPorId(@PathVariable("id") Long id) {
+		return new OperadorDTO(operadorServiceImpl.buscarPorId(id));
 	}
 	
 	@GetMapping
-	public Page<Operador> listar(Pageable pageable) {
-		return operadorServiceImpl.listar(pageable);
+	public Page<OperadorDTO> listar(Pageable pageable) {
+		return operadorServiceImpl.listar(pageable).map(OperadorDTO::new);
 	}
 
 	
 	@ResponseStatus(value = HttpStatus.CREATED)
 	@PostMapping
-	public Operador criar(@RequestBody Operador operador) {
-		return operadorServiceImpl.criar(operador);
+	public OperadorDTO criar(@RequestBody OperadorDTO operador) {
+		return new OperadorDTO(operadorServiceImpl.criar(new Operador(operador)));
 	}
 	
 	
 	@ResponseStatus(value = HttpStatus.ACCEPTED)
 	@PutMapping(value = "/{id}")
-	public Operador atualizar(
-			@PathVariable("id") Long id, @RequestBody Operador operador) {
-		return operadorServiceImpl.atualizar(id, operador);
+	public OperadorDTO atualizar(
+			@PathVariable("id") Long id, @RequestBody OperadorDTO operador) {
+		return new OperadorDTO(operadorServiceImpl.atualizar(id, new Operador(operador)));
 	}
 	
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
