@@ -19,7 +19,7 @@ public class ApiResponseError implements Serializable {
 
 	private String mensagem;
 	
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss:sss z")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss:sssz")
 	private Date data = new Date();	
 	
 	private HttpStatus status;

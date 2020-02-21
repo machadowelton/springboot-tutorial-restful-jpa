@@ -91,6 +91,7 @@ public class Leitor extends AuditModel {
 		this.usuario = usuario;
 	}
 	
+	@Builder
 	public Leitor(final LeitorDTO leitor) {
 		this.setCriadoEm(leitor.getCriadoEm());
 		this.setAtualizadoEm(leitor.getAtualizadoEm());
@@ -98,8 +99,13 @@ public class Leitor extends AuditModel {
 		this.cpf = leitor.getCpf();
 		this.email = leitor.getEmail();
 		this.dataNascimento = leitor.getDataNascimento();
-		this.telefone = new Telefone(leitor.getTelefone());
-		this.usuario = new Usuario(leitor.getUsuario());
+		this.telefone = Telefone.map(leitor.getTelefone());
+		this.usuario = Usuario.map(leitor.getUsuario());
+	}
+	
+	
+	public static Leitor map(final LeitorDTO leitor) {
+		return Leitor.builder().leitor(leitor).build();
 	}
 	
 }

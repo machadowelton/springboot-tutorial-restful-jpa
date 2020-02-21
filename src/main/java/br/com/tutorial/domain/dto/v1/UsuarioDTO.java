@@ -37,6 +37,7 @@ public class UsuarioDTO {
 	
 	private EPermissao permissao;
 	
+	@Builder
 	public UsuarioDTO(Usuario usuario) {
 		this.criadoEm = usuario.getCriadoEm();
 		this.atualizadoEm = usuario.getAtualizadoEm();
@@ -44,6 +45,10 @@ public class UsuarioDTO {
 		this.codLogin = usuario.getCodLogin();
 		this.senha = usuario.getSenha();
 		this.permissao = usuario.getPermissao();
+	}
+	
+	public static UsuarioDTO map(Usuario usuario) {
+		return UsuarioDTO.builder().usuario(usuario).build();
 	}
 	
 }

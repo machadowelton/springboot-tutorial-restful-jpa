@@ -99,6 +99,7 @@ public class Emprestimo extends AuditModel {
 		this.livros = emprestimo.livros;
 	}
 	
+	@Builder
 	public Emprestimo(final EmprestimoDTO emprestimo) {
 		this.setCriadoEm(emprestimo.getCriadoEm());
 		this.setAtualizadoEm(emprestimo.getAtualizadoEm());
@@ -106,9 +107,13 @@ public class Emprestimo extends AuditModel {
 		this.dataRetirada = emprestimo.getDataRetirada();
 		this.dataDevolucaoCalculada = emprestimo.getDataDevolucaoCalculada();
 		this.dataRealDevolucao = emprestimo.getDataRealDevolucao();
-		this.leitor = new Leitor(emprestimo.getLeitor());
-		this.operador = new Operador(emprestimo.getOperador());
-		this.livros = emprestimo.getLivros().stream().map(Livro::new).collect(Collectors.toSet());		
+		this.leitor = Leitor.map(emprestimo.getLeitor());
+		this.operador = Operador.map(emprestimo.getOperador());
+		this.livros = emprestimo.getLivros().stream().map(Livro::map).collect(Collectors.toSet());		
+	}
+	
+	public static Emprestimo map(final EmprestimoDTO emprestimo) {
+		return Emprestimo.builder().emprestimo(emprestimo).build();
 	}
 
 }

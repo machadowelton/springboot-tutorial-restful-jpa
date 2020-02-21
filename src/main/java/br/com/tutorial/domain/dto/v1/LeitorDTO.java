@@ -42,6 +42,7 @@ public class LeitorDTO {
 	
 	private UsuarioDTO usuario;
 	
+	@Builder
 	public LeitorDTO(Leitor leitor) {
 		this.criadoEm = leitor.getCriadoEm();
 		this.atualizadoEm = leitor.getAtualizadoEm();
@@ -50,8 +51,14 @@ public class LeitorDTO {
 		this.cpf = leitor.getCpf();
 		this.dataNascimento = leitor.getDataNascimento();
 		this.email = leitor.getEmail();
-		this.telefone = new TelefoneDTO(leitor.getTelefone());
-		this.usuario = new UsuarioDTO(leitor.getUsuario());
+		//this.telefone = new TelefoneDTO(leitor.getTelefone());
+		this.telefone = TelefoneDTO.map(leitor.getTelefone());
+		//this.usuario = new UsuarioDTO(leitor.getUsuario());
+		this.usuario = UsuarioDTO.map(leitor.getUsuario());
+	}
+	
+	public static LeitorDTO map(Leitor leitor) {
+		return LeitorDTO.builder().leitor(leitor).build();
 	}
 	
 }

@@ -34,6 +34,8 @@ public class EmprestimoDTO {
 	
 	private Set<LivroDTO> livros;
 	
+	
+	@Builder
 	public EmprestimoDTO(Emprestimo emprestimo) {
 		this.criadoEm = emprestimo.getCriadoEm();
 		this.atualizadoEm = emprestimo.getAtualizadoEm();
@@ -43,7 +45,11 @@ public class EmprestimoDTO {
 		this.dataRealDevolucao = emprestimo.getDataRealDevolucao();
 		this.operador = new OperadorDTO(emprestimo.getOperador());
 		this.leitor = new LeitorDTO(emprestimo.getLeitor());
-		this.livros = emprestimo.getLivros().stream().map(LivroDTO::new).collect(Collectors.toSet());
+		this.livros = emprestimo.getLivros().stream().map(LivroDTO::map).collect(Collectors.toSet());
+	}
+	
+	public static EmprestimoDTO map(final Emprestimo emprestimo) {
+		return EmprestimoDTO.builder().emprestimo(emprestimo).build();
 	}
 	
 }

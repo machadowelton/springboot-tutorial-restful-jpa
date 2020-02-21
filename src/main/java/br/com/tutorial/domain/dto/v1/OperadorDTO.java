@@ -30,7 +30,8 @@ public class OperadorDTO {
 	
 	private UsuarioDTO usuario;
 	
-	public OperadorDTO(Operador operador) {
+	@Builder
+	public OperadorDTO(final Operador operador) {
 		this.criadoEm = operador.getCriadoEm();
 		this.atualizadoEm = operador.getAtualizadoEm();
 		this.id = operador.getId();
@@ -38,7 +39,11 @@ public class OperadorDTO {
 		this.cpf = operador.getCpf();
 		this.email = operador.getEmail();
 		this.datNascimento = operador.getDataNascimento();
-		this.usuario = new UsuarioDTO(operador.getUsuario());
+		this.usuario = UsuarioDTO.map(operador.getUsuario());
+	}
+	
+	public static OperadorDTO map(final Operador operador) {
+		return OperadorDTO.builder().operador(operador).build();
 	}
 	
 }

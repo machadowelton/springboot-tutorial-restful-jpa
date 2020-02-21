@@ -81,13 +81,20 @@ public class Usuario extends AuditModel {
 		if(usuario.operador != null) this.operador = usuario.operador;
 	}
 	
-	public Usuario(final UsuarioDTO usuario) {
-		this.setCriadoEm(usuario.getCriadoEm());
-		this.setAtualizadoEm(usuario.getAtualizadoEm());
+	@Builder(builderMethodName = "mapToEntity")
+	protected Usuario(final UsuarioDTO usuario) {
+//		this.setCriadoEm(usuario.getCriadoEm());
+//		this.setAtualizadoEm(usuario.getAtualizadoEm());
+		super(usuario.getCriadoEm(), usuario.getAtualizadoEm());
 		this.id = usuario.getId();
 		this.codLogin  = usuario.getCodLogin();
 		this.senha = usuario.getSenha();
 		this.permissao = usuario.getPermissao();
+	}
+	
+	public static Usuario map(final UsuarioDTO usuario) {
+		//return Usuario.builder().usuario(usuario).build();
+		return Usuario.mapToEntity().usuario(usuario).build();
 	}
 	
 }

@@ -1,12 +1,9 @@
 package br.com.tutorial.controllers.handle;
 
-import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -17,7 +14,6 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.NoHandlerFoundException;
@@ -71,11 +67,12 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 		Map<String, String> campos = new LinkedHashMap<>();
 		String path = request.getDescription(false).split(SPLIT_URI)[1];
 		String url = host + path;
-		ex.getBindingResult().getAllErrors().forEach(c -> {
-			String campo = ((FieldError) c).getField();
-			String mensagemCampo = c.getDefaultMessage();
+		List<ObjectError> camposComErro = ex.getBindingResult().getAllErrors();
+		for(int i = camposComErro.size() - 1; i > -1; i--) {
+			String campo = ((FieldError) camposComErro.get(i)).getField();
+			String mensagemCampo = camposComErro.get(i).getDefaultMessage();
 			campos.put(campo, mensagemCampo);
-		});
+		}
 		ApiResponseValidationFieldError apiResponseValidationFieldError = new ApiResponseValidationFieldError(campos, "Ocorreu um erro na validação dos campos", new Date(), HttpStatus.BAD_REQUEST, path, url);
 		return new ResponseEntity<Object>(apiResponseValidationFieldError, new HttpHeaders(), apiResponseValidationFieldError.getStatus());
 	}

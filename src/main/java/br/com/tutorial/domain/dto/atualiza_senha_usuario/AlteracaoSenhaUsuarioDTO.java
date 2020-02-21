@@ -1,8 +1,10 @@
 package br.com.tutorial.domain.dto.atualiza_senha_usuario;
 
 import br.com.tutorial.domain.dto.v1.UsuarioDTO;
-import br.com.tutorial.domain.entities.Usuario;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Builder(toBuilder = true)
 @Data

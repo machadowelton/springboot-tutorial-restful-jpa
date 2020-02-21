@@ -7,12 +7,16 @@ import org.springframework.http.HttpStatus;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 public class ApiResponseValidationFieldError extends ApiResponseError {
 
 	private static final long serialVersionUID = -2145387805738747406L;

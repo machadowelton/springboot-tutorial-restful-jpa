@@ -33,12 +33,12 @@ public class LivroController {
 			@PathVariable("idSessao") Long sessaoId,
 			@PathVariable("id") Long id
 			) {
-		return new LivroDTO(livroServiceImpl.buscarPorIdESessaoId(id, sessaoId));
+		return LivroDTO.map(livroServiceImpl.buscarPorIdESessaoId(id, sessaoId));
 	}
 	
 	@GetMapping
 	public Page<LivroDTO> listarPorSessaoId(@PathVariable("idSessao") Long sessaoId, Pageable pageable) {
-		return livroServiceImpl.listarPorSessaoId(sessaoId, pageable).map(LivroDTO::new);
+		return livroServiceImpl.listarPorSessaoId(sessaoId, pageable).map(LivroDTO::map);
 	}
 	
 	@ResponseStatus(value = HttpStatus.CREATED)
@@ -47,7 +47,7 @@ public class LivroController {
 			@PathVariable("idSessao") Long sessaoId,
 			@RequestBody LivroDTO livro
 			) {
-		return new LivroDTO(livroServiceImpl.criar(sessaoId, new Livro(livro)));
+		return LivroDTO.map(livroServiceImpl.criar(sessaoId, Livro.map(livro)));
 	}
 	
 	@ResponseStatus(value = HttpStatus.ACCEPTED)
@@ -57,7 +57,7 @@ public class LivroController {
 			@PathVariable("id") Long id,
 			@RequestBody LivroDTO livro
 			) {
-		return new LivroDTO(livroServiceImpl.atualizar(id, sessaoId, new Livro(livro)));
+		return LivroDTO.map(livroServiceImpl.atualizar(id, sessaoId, Livro.map(livro)));
 	}
 	
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)

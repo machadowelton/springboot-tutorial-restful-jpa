@@ -28,18 +28,19 @@ public class EmprestimoController {
 	
 	@GetMapping(value = "/{id}")
 	public EmprestimoDTO buscarPorId(@PathVariable("id") Long id) {
-		return new EmprestimoDTO(emprestimoServiceImpl.buscarPorId(id));
+		//return new EmprestimoDTO(emprestimoServiceImpl.buscarPorId(id));
+		return EmprestimoDTO.map(emprestimoServiceImpl.buscarPorId(id));
 	}
 	
 	@GetMapping
 	public Page<EmprestimoDTO> listar(Pageable pageable) {
-		return emprestimoServiceImpl.listar(pageable).map(EmprestimoDTO::new);
+		return emprestimoServiceImpl.listar(pageable).map(EmprestimoDTO::map);
 	}
 	
 	@ResponseStatus(value = HttpStatus.CREATED)
 	@PostMapping
 	public EmprestimoDTO criar(@RequestBody EmprestimoDTO emprestimo) {
-		return new EmprestimoDTO(emprestimoServiceImpl.criar(new Emprestimo(emprestimo)));
+		return  EmprestimoDTO.map(emprestimoServiceImpl.criar(Emprestimo.map(emprestimo)));
 	}
 	
 	
@@ -49,7 +50,7 @@ public class EmprestimoController {
 			@PathVariable("id") Long id,
 			@RequestBody EmprestimoDTO emprestimo
 			) {
-		return new EmprestimoDTO(emprestimoServiceImpl.atualizar(id, new Emprestimo(emprestimo)));
+		return EmprestimoDTO.map(emprestimoServiceImpl.atualizar(id, Emprestimo.map(emprestimo)));
 	}
 	
 	
@@ -61,7 +62,7 @@ public class EmprestimoController {
 	
 	@GetMapping(value = "leitor/{idLeitor}")
 	public Page<EmprestimoDTO> listarPorLeitorId(@PathVariable("id") Long idLeitor, Pageable pageable) {
-		return emprestimoServiceImpl.listarPorLeitorId(idLeitor, pageable).map(EmprestimoDTO::new);
+		return emprestimoServiceImpl.listarPorLeitorId(idLeitor, pageable).map(EmprestimoDTO::map);
 	}
 	
 }

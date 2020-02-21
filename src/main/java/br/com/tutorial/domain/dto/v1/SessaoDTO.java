@@ -28,6 +28,7 @@ public class SessaoDTO {
 	
 	private int quantidadeLivros;
 	
+	@Builder
 	public SessaoDTO(Sessao sessao) {
 		this.criadoEm = sessao.getCriadoEm();
 		this.atualizadoEm = sessao.getAtualizadoEm();
@@ -40,13 +41,7 @@ public class SessaoDTO {
 	
 	public static SessaoDTO map(Sessao sessao) {
 		return SessaoDTO.builder()
-					.criadoEm(sessao.getCriadoEm())
-					.atualizadoEm(sessao.getAtualizadoEm())
-					.id(sessao.getId())
-					.nome(sessao.getNome())
-					.descricao(sessao.getDescricao())
-					.localizacao(sessao.getLocalizacao())
-					.quantidadeLivros(sessao.getLivros().size())
+					.sessao(sessao)
 					.build();
 	}
 	

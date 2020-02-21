@@ -27,11 +27,16 @@ public class Telefone {
 	
 	private Long numero;
 	
+	@Builder
 	public Telefone(final TelefoneDTO telefone) {
 		this.tipoTelefone = telefone.getTipoTelefone();
 		this.ddi = telefone.getDdi();
 		this.ddd = telefone.getDdd();
 		this.numero = telefone.getNumero();
+	}
+	
+	public static Telefone map(final TelefoneDTO telefone) {
+		return Telefone.builder().telefone(telefone).build();
 	}
 	
 }

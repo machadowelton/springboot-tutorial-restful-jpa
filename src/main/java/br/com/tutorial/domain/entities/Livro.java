@@ -106,6 +106,7 @@ public class Livro extends AuditModel {
 		this.emprestimos = emprestimos;
 	}
 	
+	@Builder
 	public Livro(final LivroDTO livro) {
 		this.setCriadoEm(livro.getCriadoEm());
 		this.setAtualizadoEm(livro.getAtualizadoEm());
@@ -115,7 +116,11 @@ public class Livro extends AuditModel {
 		this.dataLancamento = livro.getDataLancamento();
 		this.autor = livro.getAutor();
 		this.status = livro.getStatus();
-		this.sessao = new Sessao(livro.getSessao());
+		this.sessao = livro.getSessao() != null ? Sessao.map(livro.getSessao()) : null;
+	}
+	
+	public static Livro map(final LivroDTO livro) {
+		return Livro.builder().livro(livro).build();
 	}
 
 }

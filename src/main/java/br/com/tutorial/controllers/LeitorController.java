@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.tutorial.domain.dto.v1.LeitorDTO;
-import br.com.tutorial.domain.entities.Leitor;
 import br.com.tutorial.services.impls.LeitorServiceImpl;
 
 @RestController
@@ -29,20 +28,19 @@ public class LeitorController {
 	private LeitorServiceImpl leitorServiceImpl;
 	
 	@GetMapping(value = "/{id}")
-	public LeitorDTO buscarPorId(@PathVariable("id") Long idLeitor) {
-		return new LeitorDTO(leitorServiceImpl.buscarPorId(idLeitor));
+	public LeitorDTO buscarPorId(@PathVariable("id") Long idLeitor) {		
+		return leitorServiceImpl.buscarPorIdDTO(idLeitor);
 	}
 	
 	@GetMapping
 	public Page<LeitorDTO> listar(Pageable pageable) {
-		return leitorServiceImpl.listar(pageable).map(LeitorDTO::new);
+		return leitorServiceImpl.listarDTO(pageable);
 	}
 	
 	@ResponseStatus(value = HttpStatus.CREATED)
 	@PostMapping
 	public LeitorDTO criar(@Valid @RequestBody LeitorDTO leitor) {
-		Leitor leitorEntity = new Leitor(leitor);
-		return new LeitorDTO(leitorServiceImpl.criar(leitorEntity));
+		return leitorServiceImpl.criarDTO(leitor);
 	}
 	
 	@ResponseStatus(value = HttpStatus.ACCEPTED)
@@ -50,8 +48,7 @@ public class LeitorController {
 	public LeitorDTO atualizar(
 			@PathVariable("id") Long idLeitor, 
 			@RequestBody LeitorDTO leitor) {
-		Leitor leitorEntity = new Leitor(leitor);
-		return new LeitorDTO(leitorServiceImpl.atualizar(idLeitor, leitorEntity));
+		return leitorServiceImpl.atualizarDTO(idLeitor, leitor);
 	}
 	
 	

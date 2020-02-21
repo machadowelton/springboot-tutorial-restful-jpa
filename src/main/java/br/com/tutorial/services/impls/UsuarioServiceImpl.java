@@ -32,6 +32,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 		usuario.setSenha(encoder.encode(usuario.getSenha()));
 		return usuarioRepository.save(usuario);
 	}
+	
 
 	@Override
 	public void atualizarSenha(AlteracaoSenhaUsuarioDTO usuario) {

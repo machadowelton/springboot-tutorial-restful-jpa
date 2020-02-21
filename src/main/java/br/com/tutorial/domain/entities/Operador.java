@@ -17,8 +17,6 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
 import br.com.tutorial.domain.audits.AuditModel;
 import br.com.tutorial.domain.dto.v1.OperadorDTO;
 import lombok.AllArgsConstructor;
@@ -86,6 +84,7 @@ public class Operador extends AuditModel {
 		this.usuario = operador.getUsuario();
 	}
 	
+	@Builder
 	public Operador(final OperadorDTO operador) {
 		this.setCriadoEm(operador.getCriadoEm());
 		this.setAtualizadoEm(operador.getAtualizadoEm());
@@ -95,6 +94,10 @@ public class Operador extends AuditModel {
 		this.dataNascimento = operador.getDatNascimento();
 		this.email = operador.getEmail();
 		this.usuario = new Usuario(operador.getUsuario());
+	}
+	
+	public static Operador map(final OperadorDTO operador) {
+		return Operador.builder().operador(operador).build();
 	}
 
 }

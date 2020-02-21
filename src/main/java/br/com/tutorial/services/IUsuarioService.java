@@ -10,4 +10,6 @@ public interface IUsuarioService {
 
 	void atualizarSenha(final AlteracaoSenhaUsuarioDTO usuario);
 	
+	
+	
 }

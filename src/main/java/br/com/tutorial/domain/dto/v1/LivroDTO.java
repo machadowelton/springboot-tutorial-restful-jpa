@@ -33,6 +33,7 @@ public class LivroDTO {
 	
 	private SessaoDTO sessao;
 	
+	@Builder
 	public LivroDTO(Livro livro) {
 		this.criadoEm = livro.getCriadoEm();
 		this.atualizadoEm = livro.getAtualizadoEm();
@@ -42,6 +43,10 @@ public class LivroDTO {
 		this.dataLancamento = livro.getDataLancamento();
 		this.status = livro.getStatus();
 		this.sessao = new SessaoDTO(livro.getSessao());
+	}
+	
+	public static LivroDTO map(final Livro livro) {
+		return LivroDTO.builder().livro(livro).build();
 	}
 	
 }

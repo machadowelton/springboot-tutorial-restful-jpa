@@ -21,11 +21,16 @@ public class TelefoneDTO {
 	
 	private Long numero;
 	
+	@Builder
 	public TelefoneDTO(Telefone telefone) {
 		this.ddi = telefone.getDdi();
 		this.ddd = telefone.getDdd();
 		this.numero = telefone.getNumero();
 		this.tipoTelefone = telefone.getTipoTelefone();
+	}
+	
+	public static TelefoneDTO map(final Telefone telefone) {
+		return TelefoneDTO.builder().telefone(telefone).build();
 	}
 	
 }
